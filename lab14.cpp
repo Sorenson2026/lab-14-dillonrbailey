@@ -1,3 +1,8 @@
+//Dillon Bailey
+//4/21/2026
+//ENGR 1400
+//Garth Sorensen
+
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
@@ -8,6 +13,7 @@ void enterScores(int numScores, double* scores);
 void sortScores(double* arr, int size);
 double calculateAverageDropLowest(double* arr, int size);
 
+//This program gets the scores of somebody, displays them from lowest to greatest, drops the lowest, and then calculates the average
 //Main Driver
 int main()
 {
