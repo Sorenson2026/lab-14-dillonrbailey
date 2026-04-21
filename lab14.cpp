@@ -7,7 +7,6 @@ using namespace std;
 void enterScores(int numScores, double* scores);
 void sortScores(double* arr, int size);
 double calculateAverageDropLowest(double* arr, int size);
-//double displayScores(double* arr, int size);
 
 //Main Driver
 int main()
@@ -15,15 +14,23 @@ int main()
 	int numScores;
 	double* scores = nullptr;
 
-	cout << "Enter the number of scores: ";
+	cout << "Please enter the number of scores: ";
 	cin >> numScores;
+	while (numScores <= 0)
+	{
+		cout << "Please enter a positive Number: ";
+		cin >> numScores;
+	}
+
+	scores = new double[numScores];
 
 	enterScores(numScores, scores);
 
+	cout << endl;
+
 	sortScores(scores, numScores);
 
-	cout << endl << "Sorted Scores: ";
-	//displayScores(scores, numScores)
+	calculateAverageDropLowest(scores, numScores);
 
 
 	delete[] scores;
@@ -35,54 +42,55 @@ int main()
 //Enter Scores
 void enterScores(int numScores, double* scores)
 {
-	while (numScores <= 0)
-	{
-		cout << "Please enter a positive Number: ";
-		cin >> numScores;
-	}
-
-	scores = new double[numScores];
 
 	for (int i = 0; i < numScores; i++)
 	{
-		do
-		{
-			cout << "Enter Score #" << (i + 1) << ": ";
+		cout << "Enter Score #" << (i + 1) << ": ";
 			cin >> *(scores + i);
 			if (*(scores + i) < 0)
 			{
 				cout << "Negative scores are not allowed.\n";
 			}
-		} while (*(scores + i) < 0);
 	}
 }
 
-//This will sort the scores
+//sort everything
 void sortScores(double* arr, int size)
 {
-	for (int i = 0; i < size - 1; i++)
+	for (int pass = 0; pass < size - 1; pass++)
 	{
-		for (int j = 0; j < size - i - 1; j++)
+		double small = arr[pass];
+		int smallindex = pass;
+
+		for (int index = pass + 1; index < size; index++)
 		{
-			if (*(arr + j) > *(arr + j + 1))
+			if (arr[index] < small)
 			{
-				double temp = *(arr + j);
-				*(arr + j) = *(arr + j + 1);
-				*(arr + j + 1) = temp;
+				small = arr[index];
+				smallindex = index;
 			}
 		}
+		swap(arr[smallindex], arr[pass]);
 	}
 }
 
 // This will calculate the averege and should hopefully drop the lowest one haha
 double calculateAverageDropLowest(double* arr, int size)
 {
+	cout << "Test scores: ";
+	for (int i = 0; i < size; i++)
+		cout << arr[i] << " ";
+
 	if (size <= 1) return 0.0;
 
 	double total = 0;
 	for (int i = 1; i < size; i++)
 	{
 		total += *(arr + i);
+		
 	}
-	return total / (size - 1);
+	
+	cout << endl << "Your average minus the smallest score is: " << total / (size - 1) << endl << endl;
+
+	cout << "Thanks for your help Garth and Tyler :)" << endl;
 }
